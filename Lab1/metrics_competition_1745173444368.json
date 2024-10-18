@@ -1,0 +1,72 @@
+{
+    "company_names": {
+        "0": "My Shipping Corp Ltd."
+    },
+    "company_metrics": {
+        "0": {
+            "fuel_consumption": 1219.3785260242373,
+            "co2_emissions": 3853.2361422365902,
+            "fuel_cost": 524332.7661904221,
+            "vessel_status_ballast": 6.72,
+            "vessel_status_idle": 16.28,
+            "vessel_status_loading": 18.82365055254165,
+            "vessel_status_laden": 143.4628571428571,
+            "vessel_status_unloading": 18.823650552541665
+        }
+    },
+    "vessel_metrics": {
+        "(0, 0)": {
+            "route": [
+                "Aberdeen-f8ea5ddd09c3",
+                "Lyness-b0a6e09ce2a9",
+                "Castellon-08c2845d53fd"
+            ],
+            "fuel_consumption": 1219.3785260242373,
+            "co2_emissions": 3853.2361422365902,
+            "fuel_cost": 524332.7661904221,
+            "vessel_status_ballast": 6.72,
+            "vessel_status_idle": 16.28,
+            "vessel_status_loading": 18.82365055254165,
+            "vessel_status_laden": 143.4628571428571,
+            "vessel_status_unloading": 18.823650552541665
+        }
+    },
+    "global_metrics": {
+        "auction_outcomes": [
+            {
+                "0": [
+                    {
+                        "payment": Infinity,
+                        "trade": {
+                            "origin_port": {
+                                "name": "Lyness-b0a6e09ce2a9",
+                                "latitude": 58.85314,
+                                "longitude": -3.12991
+                            },
+                            "destination_port": {
+                                "name": "Castellon-08c2845d53fd",
+                                "latitude": 39.96503,
+                                "longitude": 0.02471
+                            },
+                            "amount": 94118.25276270826,
+                            "cargo_type": "Oil",
+                            "time": 1,
+                            "probability": 1,
+                            "status": 1,
+                            "time_window": [
+                                24,
+                                264,
+                                96,
+                                336
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "penalty": {
+            "0": 0,
+            "1": 0
+        }
+    }
+}
