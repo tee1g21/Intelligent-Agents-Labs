@@ -1,0 +1,218 @@
+{
+    "company_names": {
+        "0": "MyCompany",
+        "1": "PondPlayer"
+    },
+    "company_metrics": {
+        "0": {
+            "fuel_consumption": 16282.958816795635,
+            "co2_emissions": 51454.1498610742,
+            "fuel_cost": 7001672.2912221225,
+            "vessel_status_loading": 102.0,
+            "vessel_status_laden": 1628.67,
+            "vessel_status_unloading": 102.0,
+            "vessel_status_ballast": 837.9264285714285,
+            "vessel_status_idle": 40.0
+        },
+        "1": {
+            "fuel_consumption": 1610.546044642857,
+            "co2_emissions": 5089.325501071428,
+            "fuel_cost": 692534.7991964285,
+            "vessel_status_idle": 5421.192857142857
+        }
+    },
+    "vessel_metrics": {
+        "(0, 0)": {
+            "route": [
+                "Aberdeen-f8ea5ddd09c3",
+                "Aberdeen-f8ea5ddd09c3",
+                "La Plata-c06d7cba9b45",
+                "Hartlepool-3ef4e9aa5ca8",
+                "Rotterdam-92c070ce8e92",
+                "Rostock-3757c4df2366",
+                "Singapore-bfe15a9e31a0",
+                "Jeddah-17dce7ee2e7d",
+                "Texas City-28cb23375401"
+            ],
+            "fuel_consumption": 16282.958816795635,
+            "co2_emissions": 51454.1498610742,
+            "fuel_cost": 7001672.2912221225,
+            "vessel_status_loading": 102.0,
+            "vessel_status_laden": 1628.67,
+            "vessel_status_unloading": 102.0,
+            "vessel_status_ballast": 837.9264285714285,
+            "vessel_status_idle": 40.0
+        },
+        "(1, 0)": {
+            "route": [
+                "Aberdeen-f8ea5ddd09c3"
+            ],
+            "fuel_consumption": 805.2730223214285,
+            "co2_emissions": 2544.662750535714,
+            "fuel_cost": 346267.39959821425,
+            "vessel_status_idle": 2710.5964285714285
+        },
+        "(1, 1)": {
+            "route": [
+                "Suez-4ad378ddd198"
+            ],
+            "fuel_consumption": 805.2730223214285,
+            "co2_emissions": 2544.662750535714,
+            "fuel_cost": 346267.39959821425,
+            "vessel_status_idle": 2710.5964285714285
+        }
+    },
+    "global_metrics": {
+        "auction_outcomes": [
+            {
+                "0": [
+                    {
+                        "payment": 0,
+                        "trade": {
+                            "origin_port": {
+                                "name": "Aberdeen-f8ea5ddd09c3",
+                                "latitude": 57.14151,
+                                "longitude": -2.07729
+                            },
+                            "destination_port": {
+                                "name": "La Plata-c06d7cba9b45",
+                                "latitude": -34.8539,
+                                "longitude": -57.89903
+                            },
+                            "amount": 100000,
+                            "cargo_type": "Oil",
+                            "time": 30,
+                            "probability": 1,
+                            "status": 1,
+                            "time_window": [
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    },
+                    {
+                        "payment": 0,
+                        "trade": {
+                            "origin_port": {
+                                "name": "Hartlepool-3ef4e9aa5ca8",
+                                "latitude": 54.69834,
+                                "longitude": -1.18941
+                            },
+                            "destination_port": {
+                                "name": "Rotterdam-92c070ce8e92",
+                                "latitude": 51.92699,
+                                "longitude": 4.18716
+                            },
+                            "amount": 210000,
+                            "cargo_type": "Oil",
+                            "time": 30,
+                            "probability": 1,
+                            "status": 1,
+                            "time_window": [
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                ],
+                "1": []
+            },
+            {
+                "0": [
+                    {
+                        "payment": 0,
+                        "trade": {
+                            "origin_port": {
+                                "name": "Rostock-3757c4df2366",
+                                "latitude": 54.14861,
+                                "longitude": 12.11533
+                            },
+                            "destination_port": {
+                                "name": "Singapore-bfe15a9e31a0",
+                                "latitude": 1.32447,
+                                "longitude": 103.82839
+                            },
+                            "amount": 100000,
+                            "cargo_type": "Oil",
+                            "time": 60,
+                            "probability": 1,
+                            "status": 1,
+                            "time_window": [
+                                null,
+                                null,
+                                90,
+                                null
+                            ]
+                        }
+                    },
+                    {
+                        "payment": 0,
+                        "trade": {
+                            "origin_port": {
+                                "name": "Jeddah-17dce7ee2e7d",
+                                "latitude": 21.4568,
+                                "longitude": 39.15769
+                            },
+                            "destination_port": {
+                                "name": "Texas City-28cb23375401",
+                                "latitude": 29.37454,
+                                "longitude": -94.89182
+                            },
+                            "amount": 100000,
+                            "cargo_type": "Oil",
+                            "time": 60,
+                            "probability": 1,
+                            "status": 1,
+                            "time_window": [
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                ],
+                "1": []
+            },
+            {
+                "0": [],
+                "1": [
+                    {
+                        "payment": 0,
+                        "trade": {
+                            "origin_port": {
+                                "name": "Singapore-bfe15a9e31a0",
+                                "latitude": 1.32447,
+                                "longitude": 103.82839
+                            },
+                            "destination_port": {
+                                "name": "Panama City-6a366b46b9bd",
+                                "latitude": 8.94478,
+                                "longitude": -79.52727
+                            },
+                            "amount": 100000,
+                            "cargo_type": "Oil",
+                            "time": 90,
+                            "probability": 1,
+                            "status": 1,
+                            "time_window": [
+                                null,
+                                100,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "penalty": {
+            "0": 0,
+            "1": 0
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "company_names": {
+        "0": "MyCompany"
+    },
+    "company_metrics": {
+        "0": {
+            "fuel_consumption": 26.737499999999997,
+            "co2_emissions": 84.4905,
+            "fuel_cost": 11497.124999999998,
+            "vessel_status_idle": 90
+        }
+    },
+    "vessel_metrics": {
+        "(0, 0)": {
+            "route": [
+                "Aberdeen-f8ea5ddd09c3"
+            ],
+            "fuel_consumption": 26.737499999999997,
+            "co2_emissions": 84.4905,
+            "fuel_cost": 11497.124999999998,
+            "vessel_status_idle": 90
+        }
+    },
+    "global_metrics": {
+        "auction_outcomes": [
+            {
+                "0": []
+            },
+            {
+                "0": []
+            },
+            {
+                "0": []
+            }
+        ],
+        "penalty": {
+            "0": 0
+        }
+    }
+}
