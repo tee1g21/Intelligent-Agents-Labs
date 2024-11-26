@@ -1,0 +1,107 @@
+{
+    "company_names": {
+        "0": "My Shipping Corp Ltd."
+    },
+    "company_metrics": {
+        "0": {
+            "fuel_consumption": 11402.44910288459,
+            "co2_emissions": 36031.73916511531,
+            "fuel_cost": 4903053.1142403735,
+            "vessel_status_idle": 28824.706594338433,
+            "vessel_status_loading": 34.13118368045252,
+            "vessel_status_laden": 153.41285714285914,
+            "vessel_status_unloading": 34.13118368045252,
+            "vessel_status_ballast": 512.9257142857132
+        }
+    },
+    "vessel_metrics": {
+        "(0, 0)": {
+            "route": [
+                "Aberdeen-f8ea5ddd09c3",
+                "Lyness-b0a6e09ce2a9",
+                "Castellon-08c2845d53fd",
+                "Jakarta-9cac7206c0ef",
+                "Kota Agung-84a3447ce3f6"
+            ],
+            "fuel_consumption": 11402.44910288459,
+            "co2_emissions": 36031.73916511531,
+            "fuel_cost": 4903053.1142403735,
+            "vessel_status_idle": 28824.706594338433,
+            "vessel_status_loading": 34.13118368045252,
+            "vessel_status_laden": 153.41285714285914,
+            "vessel_status_unloading": 34.13118368045252,
+            "vessel_status_ballast": 512.9257142857132
+        }
+    },
+    "global_metrics": {
+        "auction_outcomes": [
+            {
+                "0": [
+                    {
+                        "payment": 0,
+                        "trade": {
+                            "origin_port": {
+                                "name": "Lyness-b0a6e09ce2a9",
+                                "latitude": 58.85314,
+                                "longitude": -3.12991
+                            },
+                            "destination_port": {
+                                "name": "Castellon-08c2845d53fd",
+                                "latitude": 39.96503,
+                                "longitude": 0.02471
+                            },
+                            "amount": 94118.25276270826,
+                            "cargo_type": "Oil",
+                            "time": 0,
+                            "probability": 1,
+                            "status": 1,
+                            "time_window": [
+                                26136,
+                                26376,
+                                26208,
+                                26448
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "0": []
+            },
+            {
+                "0": [
+                    {
+                        "payment": 0,
+                        "trade": {
+                            "origin_port": {
+                                "name": "Jakarta-9cac7206c0ef",
+                                "latitude": -6.05964,
+                                "longitude": 106.88703
+                            },
+                            "destination_port": {
+                                "name": "Kota Agung-84a3447ce3f6",
+                                "latitude": -5.50348,
+                                "longitude": 104.62302
+                            },
+                            "amount": 76537.6656395492,
+                            "cargo_type": "Oil",
+                            "time": 1440,
+                            "probability": 1,
+                            "status": 1,
+                            "time_window": [
+                                30816,
+                                31056,
+                                30984,
+                                31224
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "penalty": {
+            "0": 0,
+            "1": 0
+        }
+    }
+}
