@@ -9,10 +9,16 @@ class MyCompany(TradingCompany):
         super().__init__(fleet, name)
         self._future_trades = None
 
-    def pre_inform(self, trades, time):
+    def pre_inform(self, trades, time):        
         self._future_trades = trades
+        print(f"Pre-informed of {len(self._future_trades)} future trades.")
+        print("Future trades:")
+        for trade in self._future_trades:
+            print("Origin: ", trade.origin_port.name, "Destination: ", trade.destination_port.name)
+
 
     def inform(self, trades, *args, **kwargs):
+        print(f"Informed of {len(trades)} trades.")
         proposed_scheduling = self.propose_schedules(trades)
         scheduled_trades = proposed_scheduling.scheduled_trades
         self._current_scheduling_proposal = proposed_scheduling
@@ -25,6 +31,7 @@ class MyCompany(TradingCompany):
         return bids
 
     def receive(self, contracts, auction_ledger=None, *args, **kwargs):
+        print(f"Received {len(contracts)} contracts.")
         trades = [one_contract.trade for one_contract in contracts]
         scheduling_proposal = self.find_schedules(trades)
         rejected_trades = self.apply_schedules(scheduling_proposal.schedules)
@@ -47,6 +54,16 @@ class MyCompany(TradingCompany):
                     total_cost = self.predict_cost(current_vessel, current_trade)
                     # TODO Find the closest future trade
                     # trade_options[current_trade] = ...
+                    
+                    #print(f"[DEBUG] Future trades in propose_schedules: {self._future_trades}")
+                    if self._future_trades is not None:
+                        for future_trade in self._future_trades:
+                            distance = self.headquarters.get_network_distance(
+                                current_trade.destination_port, future_trade.origin_port
+                            )
+                            print(f"Distance to future trade: {distance}. From {current_trade.destination_port.name} to {future_trade.origin_port.name}")
+
+                    
                     pass
                 i += 1
             if len(trade_options) > 0:
@@ -55,8 +72,11 @@ class MyCompany(TradingCompany):
             j += 1
         return ScheduleProposal(schedules, scheduled_trades, costs)
 
+
+        
+
     def predict_cost(self, vessel, trade):
-        total_cost = 0
+        total_cost = vessel
         return total_cost
 
     def find_schedules(self, trades):
