@@ -11,14 +11,13 @@ class MyCompany(TradingCompany):
 
     def pre_inform(self, trades, time):        
         self._future_trades = trades
-        print(f"Pre-informed of {len(self._future_trades)} future trades.")
-        print("Future trades:")
+        print(f"\nPre-informed of {len(self._future_trades)} future trades:")
         for trade in self._future_trades:
-            print("Origin: ", trade.origin_port.name, "Destination: ", trade.destination_port.name)
-
+            print(trade.origin_port.name, "-> ", trade.destination_port.name)
+        print()
 
     def inform(self, trades, *args, **kwargs):
-        print(f"Informed of {len(trades)} trades.")
+        print(f"\nInformed of {len(trades)} trades.")
         proposed_scheduling = self.propose_schedules(trades)
         scheduled_trades = proposed_scheduling.scheduled_trades
         self._current_scheduling_proposal = proposed_scheduling
@@ -31,7 +30,7 @@ class MyCompany(TradingCompany):
         return bids
 
     def receive(self, contracts, auction_ledger=None, *args, **kwargs):
-        print(f"Received {len(contracts)} contracts.")
+        print(f"Received {len(contracts)} contracts.\n")
         trades = [one_contract.trade for one_contract in contracts]
         scheduling_proposal = self.find_schedules(trades)
         rejected_trades = self.apply_schedules(scheduling_proposal.schedules)
@@ -40,9 +39,12 @@ class MyCompany(TradingCompany):
         schedules = {}
         costs = {}
         scheduled_trades = []
+        
         j = 0
         while j < len(self._fleet):
-            current_vessel = self.fleet[j]
+            current_vessel = self.fleet[j] # print current vessel location 
+            print(f"Current vessel location: {current_vessel.location.name}") 
+            
             current_vessel_schedule = schedules.get(current_vessel, current_vessel.schedule)
             new_schedule = current_vessel_schedule.copy()
             i = 0
@@ -51,32 +53,58 @@ class MyCompany(TradingCompany):
                 current_trade = trades[i]
                 new_schedule.add_transportation(current_trade)
                 if new_schedule.verify_schedule():
+                    
+                    # calculate cost based on predict cost logic
                     total_cost = self.predict_cost(current_vessel, current_trade)
-                    # TODO Find the closest future trade
-                    # trade_options[current_trade] = ...
+                    print(f"Trade {i+1} cost: {total_cost}. {current_trade.origin_port.name} -> {current_trade.destination_port.name}")
                     
-                    #print(f"[DEBUG] Future trades in propose_schedules: {self._future_trades}")
-                    if self._future_trades is not None:
-                        for future_trade in self._future_trades:
-                            distance = self.headquarters.get_network_distance(
-                                current_trade.destination_port, future_trade.origin_port
-                            )
-                            print(f"Distance to future trade: {distance}. From {current_trade.destination_port.name} to {future_trade.origin_port.name}")
-
-                    
-                    pass
+                    #trade options currently based on cost
+                    trade_options[current_trade] = total_cost
+                 
+            
+                else: 
+                    print(f"Schedule not valid for trade: {current_trade.origin_port.name} -> {current_trade.destination_port.name} ")
+                     
                 i += 1
             if len(trade_options) > 0:
-                # TODO Select a trade
-                pass
+                
+                schedules[current_vessel] = new_schedule
+                
+                # select trade with lowest distance
+                selected_trade = min(trade_options, key=trade_options.get)
+                print(f"Selected trade: {selected_trade.origin_port.name} -> {selected_trade.destination_port.name}")
+                scheduled_trades.append(selected_trade)
+                
+                # add cost to costs dictionary
+                costs[selected_trade] = trade_options[selected_trade]
+                
             j += 1
         return ScheduleProposal(schedules, scheduled_trades, costs)
 
 
         
-
     def predict_cost(self, vessel, trade):
-        total_cost = vessel
+        
+        #vessel speed
+        speed = vessel.speed
+        
+        # cost of laden travel
+        laden_distance = self.headquarters.get_network_distance(vessel.location, trade.origin_port)
+        laden_travel_time = vessel.get_travel_time(laden_distance)
+        laden_cost = vessel.get_laden_consumption(laden_travel_time, speed)
+        
+        # cost of ballast travel
+        ballast_distance = self.headquarters.get_network_distance(trade.origin_port, trade.destination_port)
+        ballast_travel_time = vessel.get_travel_time(ballast_distance)
+        ballast_cost = vessel.get_ballast_consumption(ballast_travel_time, speed)
+        
+        # loading/unloading costs
+        loading_fuel_cost = vessel.get_loading_consumption(trade.amount)
+        unloading_fuel_cost = vessel.get_unloading_consumption(trade.amount)
+
+        # sum costs
+        total_cost = laden_cost + ballast_cost + loading_fuel_cost + unloading_fuel_cost
+        
         return total_cost
 
     def find_schedules(self, trades):
@@ -113,3 +141,13 @@ def build_specification():
 
 if __name__ == '__main__':
     build_specification()
+
+
+   #if self._future_trades is not None:
+                    #    for future_trade in self._future_trades:
+                    #        distance = self.headquarters.get_network_distance(
+                    #            current_trade.destination_port, future_trade.origin_port
+                    #        )
+                    #        print(f"Trade Distance: {distance}. {current_trade.destination_port.name} -> {future_trade.origin_port.name}")
+                    #else:
+                    #    print("No future trades")
