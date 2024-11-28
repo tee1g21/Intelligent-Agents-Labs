@@ -56,11 +56,34 @@ class MyCompany(TradingCompany):
                     
                     # calculate cost based on predict cost logic
                     total_cost = self.predict_cost(current_vessel, current_trade)
-                    print(f"Trade {i+1} cost: {total_cost}. {current_trade.origin_port.name} -> {current_trade.destination_port.name}")
-                    
-                    #trade options currently based on cost
-                    trade_options[current_trade] = total_cost
+                    #print(f"Trade {i+1} cost: {total_cost}. {current_trade.origin_port.name} -> {current_trade.destination_port.name}")
+                    costs[current_trade] = total_cost
                  
+                    print(f"Evaluating trade: {current_trade.origin_port.name} -> {current_trade.destination_port.name}")
+
+                 
+                    # Find the closest future trade
+                    closest_future_trade = None
+                    min_distance = float('inf')
+                
+                    if self._future_trades:  # Ensure there are future trades available
+                        for future_trade in self._future_trades:
+                            distance = self.headquarters.get_network_distance(
+                                current_trade.destination_port, future_trade.origin_port
+                            )
+                            print(f"\tDistance to future trade {future_trade.origin_port.name} -> {future_trade.destination_port.name}: {distance}")
+
+                            if distance < min_distance:
+                                min_distance = distance
+                                closest_future_trade = future_trade
+                    
+                    # Store the minimum distance in trade_options
+                    if closest_future_trade:
+                        print(f"\tClosest future trade: {closest_future_trade.origin_port.name} -> {closest_future_trade.destination_port.name}, Distance: {min_distance}")
+                        trade_options[current_trade] = min_distance
+                    else:
+                        trade_options[current_trade] = float('inf')  # If no future trades exist
+            
             
                 else: 
                     print(f"Schedule not valid for trade: {current_trade.origin_port.name} -> {current_trade.destination_port.name} ")
@@ -89,12 +112,12 @@ class MyCompany(TradingCompany):
         speed = vessel.speed
         
         # cost of laden travel
-        laden_distance = self.headquarters.get_network_distance(vessel.location, trade.origin_port)
+        laden_distance = self.headquarters.get_network_distance(trade.origin_port, trade.destination_port)
         laden_travel_time = vessel.get_travel_time(laden_distance)
         laden_cost = vessel.get_laden_consumption(laden_travel_time, speed)
         
         # cost of ballast travel
-        ballast_distance = self.headquarters.get_network_distance(trade.origin_port, trade.destination_port)
+        ballast_distance = self.headquarters.get_network_distance(vessel.location, trade.origin_port)
         ballast_travel_time = vessel.get_travel_time(ballast_distance)
         ballast_cost = vessel.get_ballast_consumption(ballast_travel_time, speed)
         
