@@ -3,12 +3,25 @@ from mable.examples import environment, fleets, shipping, companies
 from mable.transport_operation import ScheduleProposal
 
 
-class MyCompany(TradingCompany):
+class SuperEpicCompany(TradingCompany):
 
     def receive(self, contracts, auction_ledger=None, *args, **kwargs):
+        print(f"Received {len(contracts)} contracts.\n")
         trades = [one_contract.trade for one_contract in contracts]
         scheduling_proposal = self.find_schedules(trades)
         _ = self.apply_schedules(scheduling_proposal.schedules)
+
+    def pre_inform(self, trades, time):
+        self._future_trades = trades
+        print(f"\nPre-informed of {len(self._future_trades)} future trades:")
+        for trade in self._future_trades:
+            print(trade.origin_port.name, "-> ", trade.destination_port.name)
+        print()
+    
+
+    def inform(self, trades, *args, **kwargs):
+        print(f"\nInformed of {len(trades)} trades.")
+        return super().inform(trades, *args, **kwargs)
 
     def propose_schedules(self, trades):
         schedules = {}
@@ -16,6 +29,7 @@ class MyCompany(TradingCompany):
         i = 0
         while i < len(trades):
             current_trade = trades[i]
+                        
             competing_vessels = self.find_competing_vessels(current_trade)
             if len(competing_vessels) == 0:
                 print(f"{current_trade.origin_port.name.split('-')[0]}"
@@ -72,13 +86,38 @@ class MyCompany(TradingCompany):
         competing_vessels = {}
         # TODO add competing vessels
         # competing_vessels[<a company>] = <a vessel>
+        
+        companies = self.headquarters.get_companies()
+        # print companies if there are any
+        if companies:
+            for company in companies:
+                closest_vessel = None
+                min_distance = float('inf')
+
+                # Check each vessel in the company's fleet
+                for vessel in company.fleet:
+                    
+                    #print vessel name with company name
+                    print(f"{company.name}'s {vessel.name}")
+                    
+                    # Calculate the distance from the vessel's location to the trade's origin port
+                    distance = self.headquarters.get_network_distance(vessel.location, trade.origin_port)
+
+                    # Update closest vessel if this vessel is closer
+                    if distance < min_distance:
+                        min_distance = distance
+                        closest_vessel = vessel
+
+                # Add the closest vessel for the company to the dictionary
+                if closest_vessel:
+                    competing_vessels[company] = closest_vessel
         return competing_vessels
 
 
 def build_specification():
     specifications_builder = environment.get_specification_builder(fixed_trades=shipping.example_trades_1())
     fleet = fleets.example_fleet_1()
-    specifications_builder.add_company(MyCompany.Data(MyCompany, fleet, MyCompany.__name__))
+    specifications_builder.add_company(SuperEpicCompany.Data(SuperEpicCompany, fleet, SuperEpicCompany.__name__))
     specifications_builder.add_company(
         companies.PondPlayer.Data(companies.PondPlayer, fleets.example_fleet_3(), companies.PondPlayer.__name__))
     sim = environment.generate_simulation(
