@@ -153,7 +153,7 @@ class MyCompany(TradingCompany):
 
 
 def build_specification():
-    specifications_builder = environment.get_specification_builder(fixed_trades=shipping.example_trades_1())
+    specifications_builder = environment.get_specification_builder(fixed_trades=shipping.example_trades_1(), environment_files_path="../resources")
     fleet = fleets.example_fleet_1()
     specifications_builder.add_company(MyCompany.Data(MyCompany, fleet, MyCompany.__name__))
     sim = environment.generate_simulation(
@@ -164,13 +164,3 @@ def build_specification():
 
 if __name__ == '__main__':
     build_specification()
-
-
-   #if self._future_trades is not None:
-                    #    for future_trade in self._future_trades:
-                    #        distance = self.headquarters.get_network_distance(
-                    #            current_trade.destination_port, future_trade.origin_port
-                    #        )
-                    #        print(f"Trade Distance: {distance}. {current_trade.destination_port.name} -> {future_trade.origin_port.name}")
-                    #else:
-                    #    print("No future trades")

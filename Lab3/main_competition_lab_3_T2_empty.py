@@ -115,7 +115,7 @@ class SuperEpicCompany(TradingCompany):
 
 
 def build_specification():
-    specifications_builder = environment.get_specification_builder(fixed_trades=shipping.example_trades_1())
+    specifications_builder = environment.get_specification_builder(fixed_trades=shipping.example_trades_1(), environment_files_path="../resources")
     fleet = fleets.example_fleet_1()
     specifications_builder.add_company(SuperEpicCompany.Data(SuperEpicCompany, fleet, SuperEpicCompany.__name__))
     specifications_builder.add_company(
