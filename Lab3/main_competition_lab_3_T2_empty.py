@@ -83,34 +83,28 @@ class SuperEpicCompany(TradingCompany):
         return total_cost
 
     def find_competing_vessels(self, trade):
-        competing_vessels = {}
-        # TODO add competing vessels
-        # competing_vessels[<a company>] = <a vessel>
-        
+        competing_vessels = {}                
         companies = self.headquarters.get_companies()
-        # print companies if there are any
+
+        # Find the closest vessel for each company
         if companies:
             for company in companies:
                 closest_vessel = None
                 min_distance = float('inf')
 
-                # Check each vessel in the company's fleet
-                for vessel in company.fleet:
-                    
-                    #print vessel name with company name
-                    print(f"{company.name}'s {vessel.name}")
-                    
-                    # Calculate the distance from the vessel's location to the trade's origin port
+                for vessel in company.fleet:                    
+                    print(f"{company.name}'s {vessel.name}")                    
+                    # distance from vessel to trade origin port
                     distance = self.headquarters.get_network_distance(vessel.location, trade.origin_port)
-
-                    # Update closest vessel if this vessel is closer
+                    # update min distance and closest vessel
                     if distance < min_distance:
                         min_distance = distance
                         closest_vessel = vessel
 
-                # Add the closest vessel for the company to the dictionary
+                # add the closest vessel to competing vessels
                 if closest_vessel:
                     competing_vessels[company] = closest_vessel
+                    
         return competing_vessels
 
 

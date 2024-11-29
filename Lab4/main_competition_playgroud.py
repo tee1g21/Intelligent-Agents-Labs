@@ -8,7 +8,8 @@ def build_specification():
     trades_per_auction = 5
     specifications_builder = environment.get_specification_builder(
         trades_per_occurrence=trades_per_auction,
-        num_auctions=number_of_month)
+        num_auctions=number_of_month, 
+        environment_files_path="../resources")
     my_fleet = fleets.mixed_fleet(num_suezmax=1, num_aframax=1, num_vlcc=1)
     specifications_builder.add_company(groupn.Companyn.Data(groupn.Companyn, my_fleet, groupn.Companyn.__name__))
     arch_enemy_fleet = fleets.mixed_fleet(num_suezmax=1, num_aframax=1, num_vlcc=1)
